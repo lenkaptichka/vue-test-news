@@ -4,7 +4,8 @@
 			v-for="news of news_data"
 			:key="news.id"
 			v-bind:news_item_data="news"		
-		/>		
+		/>
+		<h3 class="news__empty" v-if="news_data.length === 0">Нет доступных новостей :(</h3>	
 	</div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
 </script>
 
 <style scoped>
+
 .news {
 	width: 75%;
 	display: grid;
@@ -47,6 +49,31 @@ export default {
     width: fit-content;
     grid-template-columns: 100%;
     grid-row-gap: 10px;
+		
+  }
+}
+
+.news__empty {
+	grid-column-start: 1;
+  grid-column-end: 4;
+	color: #27282c;
+	font-size: 24px;
+	margin: 40px auto 0px;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .news__empty {   
+		grid-column-start: 1;
+		grid-column-end: 3;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .news__empty {
+		width: 100%;
+		grid-column-start: 1;
+    grid-column-end: 2;
+		text-align: center;		
   }
 }
 </style>

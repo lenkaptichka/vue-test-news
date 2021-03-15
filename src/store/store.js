@@ -4,13 +4,6 @@ import axios from 'axios'
 
 Vue.use(Vuex);
 
-const mainUrl = 'https://hacker-news.firebaseio.com';
-const numberOfNews = 50;
-function getNewsById(articleId, storageArr) {
-	return axios.get(`${mainUrl}/v0/item/${articleId}.json`)
-		.then (res => {storageArr.push(res.data)})
-}
-
 export default new Vuex.Store({
 	state: {
 		newsList: [],
@@ -20,19 +13,13 @@ export default new Vuex.Store({
 	actions: {
 		fetchNews({commit}) {
 			commit('loadingStatus', true);
-			let arrOfNewsId;
-			let arrOfNews = [];
-			return axios.get(`${mainUrl}/v0/topstories.json?print=pretty&orderBy="$key"&limitToFirst=${numberOfNews}`)
+			return axios.get('http://newsapi.org/v2/top-headlines?country=ru&pageSize=50&apiKey=e0da008a0d6646b5be1826bc9a93fda3')
       	.then(res => {
-					arrOfNewsId = res.data;
-					arrOfNewsId.forEach(id => {
-						getNewsById(id, arrOfNews);						
-					});
-					commit('updateNews', arrOfNews);
+					commit('updateNews', res.data.articles);
 					commit('loadingStatus', false);
 				})
 				.catch(error => console.log(error))								
-		},
+		}
 	},
 
 	mutations: {

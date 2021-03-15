@@ -1,10 +1,10 @@
 <template>
 	<a class="news__item" :href="news_item_data.url" target="_blank">
 		<div class="news__info">
-			<h3 class="news__author">{{news_item_data.by}}</h3>
-			<div class="news__rating">
-				<img src="../assets/star.svg" alt="" class="news__rating-icon">
-				<h4 class="news__rating-value">{{news_item_data.score}}</h4>
+			<h3 class="news__author">{{news_item_data.author}}</h3>
+			<div class="news__source">
+				<img src="../assets/star.svg" alt="" class="news__source-icon">
+				<h4 class="news__source-value">{{news_item_data.source.name}}</h4>
 			</div>
 		</div>
 		<h2 class="news__title">{{news_item_data.title}}</h2>
@@ -27,7 +27,7 @@ export default {
 
 	computed: {
 		displayDate() {
-			const timeFormat = new Date(this.news_item_data.time * 1000);
+			const timeFormat = new Date(this.news_item_data.publishedAt);
 			let options = {
 				year: 'numeric',
 				month: 'long',
@@ -76,10 +76,10 @@ export default {
 
 .news__author {
 	margin: 0;
-	font-size: 24px;
+	font-size: 12px;
 }
 
-.news__rating {
+.news__source {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -87,7 +87,7 @@ export default {
 	color: #7a9aa1;	
 }
 
-.news__rating-value {
+.news__source-value {
 	margin: 0px 0px 0px 10px;
 	text-align: center;
 	font-size: 22px;
